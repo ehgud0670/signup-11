@@ -11,16 +11,6 @@ import UIKit
 @testable import SignupApp
 
 final class NamePresenterTests: XCTestCase {
-    private var presenter: NamePresenter!
-    
-    override func setUpWithError() throws {
-        presenter = NamePresenter()
-    }
-
-    override func tearDownWithError() throws {
-        presenter = nil
-    }
-    
     func test_validateText_이름에_공백이_있을때() throws {
         //given
         let spy: SignupTextableViewSpy = {
@@ -28,9 +18,10 @@ final class NamePresenterTests: XCTestCase {
             spy.text = "김 도형"
             return spy
         }()
+        let presenter = NamePresenter(signupTextableView: spy)
         
         //when
-        presenter.validateText(of: spy)
+        presenter.validateText()
         
         //then
         let result = try XCTUnwrap(spy.message)
@@ -44,9 +35,10 @@ final class NamePresenterTests: XCTestCase {
             spy.text = "김도형"
             return spy
         }()
+        let presenter = NamePresenter(signupTextableView: spy)
         
         //when
-        presenter.validateText(of: spy)
+        presenter.validateText()
         
         //then
         let result = try XCTUnwrap(spy.message)

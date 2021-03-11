@@ -11,16 +11,6 @@ import UIKit
 @testable import SignupApp
 
 final class PasswordPresenterTests: XCTestCase {
-    private var presenter: PasswordPresenter!
-    
-    override func setUpWithError() throws {
-        presenter = PasswordPresenter()
-    }
-
-    override func tearDownWithError() throws {
-        presenter = nil
-    }
-
     func test_validateText_8자_이상_16자_이하로_작성하지_않을_때() throws {
         //given
         let spy: SignupTextableViewSpy = {
@@ -28,9 +18,10 @@ final class PasswordPresenterTests: XCTestCase {
             spy.text = "1111"
             return spy
         }()
+        let presenter = PasswordPresenter(signupTextableView: spy)
         
         //when
-        presenter.validateText(of: spy)
+        presenter.validateText()
         
         //then
         let result = try XCTUnwrap(spy.message)
@@ -44,9 +35,10 @@ final class PasswordPresenterTests: XCTestCase {
             spy.text = "1111jason"
             return spy
         }()
+        let presenter = PasswordPresenter(signupTextableView: spy)
         
         //when
-        presenter.validateText(of: spy)
+        presenter.validateText()
         
         //then
         let result = try XCTUnwrap(spy.message)
@@ -60,9 +52,10 @@ final class PasswordPresenterTests: XCTestCase {
             spy.text = "ehgud#Jason"
             return spy
         }()
+        let presenter = PasswordPresenter(signupTextableView: spy)
         
         //when
-        presenter.validateText(of: spy)
+        presenter.validateText()
         
         //then
         let result = try XCTUnwrap(spy.message)
@@ -76,9 +69,10 @@ final class PasswordPresenterTests: XCTestCase {
             spy.text = "ehgud11Jason"
             return spy
         }()
+        let presenter = PasswordPresenter(signupTextableView: spy)
         
         //when
-        presenter.validateText(of: spy)
+        presenter.validateText()
         
         //then
         let result = try XCTUnwrap(spy.message)
@@ -92,9 +86,10 @@ final class PasswordPresenterTests: XCTestCase {
             spy.text = "ehgud@11Jason"
             return spy
         }()
+        let presenter = PasswordPresenter(signupTextableView: spy)
         
         //when
-        presenter.validateText(of: spy)
+        presenter.validateText()
         
         //then
         let result = try XCTUnwrap(spy.message)

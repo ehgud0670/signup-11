@@ -26,16 +26,6 @@ private final class IDableViewSpy: UIView, IDableView {
 }
 
 final class IDPresenterTests: XCTestCase {
-    private var presenter: IDPresenter!
-    
-    override func setUp() {
-        presenter = IDPresenter()
-    }
-    
-    override func tearDown() {
-        presenter = nil
-    }
-    
     func test_validateText_아이디_조건이_맞지_않을_때() throws {
         //given
         let spy: IDableViewSpy = {
@@ -43,9 +33,10 @@ final class IDPresenterTests: XCTestCase {
             spy.text = "김도형"
             return spy
         }()
+        let presenter = IDPresenter(idableView: spy)
         
         //when
-        _ = presenter.validateText(of: spy)
+        _ = presenter.validateText()
         
         //then
         let result = try XCTUnwrap(spy.message)
@@ -59,9 +50,10 @@ final class IDPresenterTests: XCTestCase {
             spy.text = "kimdo2297"
             return spy
         }()
+        let presenter = IDPresenter(idableView: spy)
         
         //when
-        _ = presenter.validateText(of: spy)
+        _ = presenter.validateText()
         
         //then
         let result = try XCTUnwrap(spy.message)

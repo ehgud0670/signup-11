@@ -26,24 +26,15 @@ private final class RePasswordableViewSpy: UIView, RePasswordableView {
 }
 
 final class RepasswordPresenterTests: XCTestCase {
-    private var presenter: RePasswordPresenter!
-    
-    override func setUpWithError() throws {
-        presenter = RePasswordPresenter()
-    }
-
-    override func tearDownWithError() throws {
-        presenter = nil
-    }
-    
     func test_이전_패스워드가_조건이_맞지_않을_때() throws {
         //given
         let spy = RePasswordableViewSpy()
         spy.text = "1111"
         spy.passwordTextableView?.isCorrect = false
+        let presenter = RePasswordPresenter(signupTextableView: spy)
         
         //when
-        presenter.validateText(of: spy)
+        presenter.validateText()
         
         //then
         let result = try XCTUnwrap(spy.message)
@@ -56,9 +47,10 @@ final class RepasswordPresenterTests: XCTestCase {
         spy.passwordTextableView?.isCorrect = true
         spy.passwordTextableView?.text = "1111Jason@"
         spy.text = "1111"
+        let presenter = RePasswordPresenter(signupTextableView: spy)
         
         //when
-        presenter.validateText(of: spy)
+        presenter.validateText()
         
         //then
         let result = try XCTUnwrap(spy.message)
@@ -71,9 +63,10 @@ final class RepasswordPresenterTests: XCTestCase {
         spy.passwordTextableView?.isCorrect = true
         spy.passwordTextableView?.text = "1111Jason@"
         spy.text = "1111Jason@"
+        let presenter = RePasswordPresenter(signupTextableView: spy)
         
         //when
-        presenter.validateText(of: spy)
+        presenter.validateText()
         
         //then
         let result = try XCTUnwrap(spy.message)

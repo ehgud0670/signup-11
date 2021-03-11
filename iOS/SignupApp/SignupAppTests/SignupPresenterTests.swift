@@ -15,9 +15,9 @@ final class SignupPresenterTests: XCTestCase {
     private var textableView: SignupTextableViewSpy!
     
     override func setUp() {
-        presenter = SignupPresenter()
         textableView = SignupTextableViewSpy()
         textableView.text = ""
+        presenter = SignupPresenter(signupTextableView: textableView)
     }
 
     override func tearDown() {
@@ -27,7 +27,7 @@ final class SignupPresenterTests: XCTestCase {
     
     func test_validateText_텍스트_길이가_0일때() throws {
         //when
-        presenter.validateText(of: textableView)
+        presenter.validateText()
         //then
         let result = try XCTUnwrap(textableView.message)
         XCTAssertEqual(result, "필수 항목입니다.")
